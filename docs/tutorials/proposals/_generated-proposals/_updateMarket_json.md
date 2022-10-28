@@ -14,9 +14,13 @@
           "future": {
             "quoteName": "tEuro",
             "settlementDataDecimals": 5,
-            "oracleSpecForSettlementData": {
-              "pubKeys": [
-                "0xfCEAdAFab14d46e20144F48824d0C09B1a03F2BC"
+            "dataSourceSpecForSettlementData": {
+              "signers": [
+                {
+                  "ethAddress": {
+                    "address": "0xfCEAdAFab14d46e20144F48824d0C09B1a03F2BC"
+                  }
+                }
               ],
               "filters": [
                 {
@@ -33,9 +37,13 @@
                 }
               ]
             },
-            "oracleSpecForTradingTermination": {
-              "pubKeys": [
-                "0xfCEAdAFab14d46e20144F48824d0C09B1a03F2BC"
+            "dataSourceSpecForTradingTermination": {
+              "signers": [
+                {
+                  "ethAddress": {
+                    "address": "0xfCEAdAFab14d46e20144F48824d0C09B1a03F2BC"
+                  }
+                }
               ],
               "filters": [
                 {
@@ -52,14 +60,13 @@
                 }
               ]
             },
-            "oracleSpecBinding": {
+            "dataSourceSpecBinding": {
               "settlementDataProperty": "prices.BTC.value",
               "tradingTerminationProperty": "vegaprotocol.builtin.timestamp"
             }
           }
         },
         "metadata": [
-          "sector:energy",
           "sector:materials",
           "source:docs.vega.xyz"
         ],
@@ -74,17 +81,17 @@
         },
         "logNormal": {
           "tau": 0.0001140771161,
-          "riskAversionParameter": 0.01,
+          "riskAversionParameter": 0.001,
           "params": {
             "mu": 0,
             "r": 0.016,
-            "sigma": 0.8
+            "sigma": 1.25
           }
         }
       }
     },
-    "closingTimestamp": 1668528151,
-    "enactmentTimestamp": 1668614551
+    "closingTimestamp": 1668604121,
+    "enactmentTimestamp": 1668690521
   }
 }
 ```

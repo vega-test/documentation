@@ -20,23 +20,27 @@
       // Human-readable name/abbreviation of the quote name (string)
       quoteName: "tEuro",
 
-      // The number of decimal places implied by the settlement data (such as price) emitted by the settlement oracle (int64 as integer)
+      // The number of decimal places implied by the settlement data (such as price) emitted by the settlement external data source (int64 as integer)
       settlementDataDecimals: 5,
 
-      // The oracle spec describing the oracle data of settlement data (object)
-      oracleSpecForSettlementData: {
-       // pubKeys is the list of authorized public keys that signed the data for this
-       // oracle. All the public keys in the oracle data should be contained in these
-       // public keys. (array of strings)
-       pubKeys: [
-        "0xfCEAdAFab14d46e20144F48824d0C09B1a03F2BC"
+      // The data source spec describing the data of settlement data (object)
+      dataSourceSpecForSettlementData: {
+       // signers is the list of authorized signatures that signed the data for this
+       // source. All the signatures in the data source data should be contained in this
+       // external source. All the signatures in the data should be contained in this list. (array of objects)
+       signers: [
+        {
+         ethAddress: {
+          address: "0xfCEAdAFab14d46e20144F48824d0C09B1a03F2BC"
+         }
+        }
        ],
 
-       // filters describes which oracle data are considered of interest or not for
+       // filters describes which source data are considered of interest or not for
        // the product (or the risk model).
        filters: [
         {
-         // key is the oracle data property key targeted by the filter.
+         // key is the data source data property key targeted by the filter.
          key: {
           // name is the name of the property. (string)
           name: "prices.BTC.value",
@@ -60,20 +64,24 @@
        ]
       },
 
-      // The oracle spec describing the oracle data of trading termination (object)
-      oracleSpecForTradingTermination: {
-       // pubKeys is the list of authorized public keys that signed the data for this
-       // oracle. All the public keys in the oracle data should be contained in these
-       // public keys. (array of strings)
-       pubKeys: [
-        "0xfCEAdAFab14d46e20144F48824d0C09B1a03F2BC"
+      // The data source spec describing the data source for trading termination (object)
+      dataSourceSpecForTradingTermination: {
+       // signers is the list of authorized signatures that signed the data for this
+       // source. All the signatures in the data source data should be contained in this
+       // external source. All the signatures in the data should be contained in this list. (array of objects)
+       signers: [
+        {
+         ethAddress: {
+          address: "0xfCEAdAFab14d46e20144F48824d0C09B1a03F2BC"
+         }
+        }
        ],
 
-       // filters describes which oracle data are considered of interest or not for
+       // filters describes which source data are considered of interest or not for
        // the product (or the risk model).
        filters: [
         {
-         // key is the oracle data property key targeted by the filter.
+         // key is the data source data property key targeted by the filter.
          key: {
           // name is the name of the property. (string)
           name: "vegaprotocol.builtin.timestamp",
@@ -97,22 +105,21 @@
        ]
       },
 
-      // The binding between the oracle spec and the settlement data (object)
-      oracleSpecBinding: {
-       // settlement_data_property holds the name of the property in the oracle data
+      // The binding between the data source spec and the settlement data (object)
+      dataSourceSpecBinding: {
+       // settlement_data_property holds the name of the property in the source data
        // that should be used as settlement data.
        // If it is set to "prices.BTC.value", then the Future will use the value of
        // this property as settlement data. (string) 
        settlementDataProperty: "prices.BTC.value",
 
-       // the name of the property in the oracle data that signals termination of trading (string) 
+       // the name of the property in the data source data that signals termination of trading (string) 
        tradingTerminationProperty: "vegaprotocol.builtin.timestamp"
       }
      },
 
      // Optional market metadata, tags
      metadata: [
-      "sector:energy",
       "sector:materials",
       "source:docs.vega.xyz"
      ],
@@ -142,7 +149,7 @@
       tau: 0.0001140771161,
 
       // Risk Aversion Parameter (double as number) 
-      riskAversionParameter: "0.01",
+      riskAversionParameter: "0.001",
 
       // Risk model parameters for log normal
       params: {
@@ -153,7 +160,7 @@
        r: 0.016,
 
        // Sigma param (double as number) 
-       sigma: 0.8,
+       sigma: 1.25,
       }
      },
     },
@@ -161,11 +168,11 @@
 
    // Timestamp (Unix time in seconds) when voting closes for this proposal,
    // constrained by `minClose` and `maxClose` network parameters (int64 as string)
-   closingTimestamp: 1668528151,
+   closingTimestamp: 1668604121,
 
    // Timestamp (Unix time in seconds) when proposal gets enacted (if passed),
    // constrained by `minEnact` and `maxEnact` network parameters (int64 as string)
-   enactmentTimestamp: 1668614551,
+   enactmentTimestamp: 1668690521,
   }
  }
 ```

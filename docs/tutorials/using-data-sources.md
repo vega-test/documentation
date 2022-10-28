@@ -1,5 +1,5 @@
 ---
-title: Use oracle data
+title: Data sources
 hide_title: false
 description: Include oracle details in a proposal and submit data to settle and terminate a market
 ---
@@ -46,7 +46,7 @@ For the binding, use the `name` field of the data. In the case of our example ab
 For now this will focus on using the data for settlement price - both examples below use a Vega time data source to terminate the market.
 
 ```javascript
-"oracleSpecBinding": {
+"dataSourceSpecBinding": {
   "settlementDataProperty": "prices.BTC.value",
   "tradingTerminationProperty": "vegaprotocol.builtin.timestamp"
 }
@@ -55,8 +55,12 @@ For now this will focus on using the data for settlement price - both examples b
 The following oracle spec would make the market use the BTC value from the Open Oracle data submitted below:
 
 ```javascript
-   "oracleSpecForSettlementData": {
-        "pubKeys": ["0xfCEAdAFab14d46e20144F48824d0C09B1a03F2BC"],
+   "dataSourceSpecForSettlementData": {
+        "signers": [{
+          "ethereumAddress": {
+            "address": "0xfCEAdAFab14d46e20144F48824d0C09B1a03F2BC"
+          }
+        }],
         "filters": [{
             "key": {
                 "name": "prices.BTC.timestamp",
@@ -181,10 +185,12 @@ The data we submitted in step three will be returned as follows:
     "oracleData": [
       // This is the Open Oracle data message
       {
-        "pubKeys": [
-          // This is the Ethereum public key of the Coinbase oracle, the original signer of the Open Oracle message
-          // submitted above
-          "0xfCEAdAFab14d46e20144F48824d0C09B1a03F2BC"
+        "signers": [
+          {
+            "ethAddresses": {
+              "address": "0xfCEAdAFab14d46e20144F48824d0C09B1a03F2BC"
+            }
+          }
         ],
         "data": [
           {

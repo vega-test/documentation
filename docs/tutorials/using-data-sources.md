@@ -166,14 +166,18 @@ The following GraphQL query shows previous oracle data submissions, which can be
 
 ```graphql
 {
-  oracleData {
-    pubKeys
-    data {
-      name
-      value
+  oracleDataConnection {
+    edges {
+      node {
+        pubKeys
+        data {
+          name
+          value
+        }
+        broadcastAt
+        matchedSpecIds        
+      }
     }
-    broadcastAt
-    matchedSpecIds
   }
 }
 ```
@@ -217,7 +221,7 @@ The data we submitted in step three will be returned as follows:
 For the binding, use the `name` field of the data. In the case of our example above, this would be `"moonwalkers"`.
 
 ```javascript
-"oracleSpecBinding": {
+"dataSourceSpecBinding": {
   "settlementDataProperty": "moonwalkers",
   "tradingTerminationProperty": "vegaprotocol.builtin.timestamp"
 }
@@ -226,8 +230,12 @@ For the binding, use the `name` field of the data. In the case of our example ab
 The Oracle Specification that would bind to the `moonwalkers` property would be as follows:
 
 ```javascript
-   "oracleSpecForSettlementData": {
-        "pubKeys": ["123abc"],
+   "dataSourceSpecForSettlementData": {
+        "signers": [{
+          "pubKey": {
+             "key": "123abc",
+          }
+        }],
         "filters": [{
             "key": {
                 "name": "moonwalkers",
@@ -324,16 +332,21 @@ The following GraphQL query shows previous oracle data submissions, which can be
 
 ```graphql
 {
-  oracleData {
-    pubKeys
-    data {
-      name
-      value
+  oracleDataConnection {
+    edges {
+      node {
+        pubKeys
+        data {
+          name
+          value
+        }
+        broadcastAt
+        matchedSpecIds        
+      }
     }
-    broadcastAt
-    matchedSpecIds
   }
 }
+
 ```
 Assuming someone submitted JSON oracle data, the result would be something like this:
 
@@ -371,7 +384,7 @@ As the name implies, a built in data source is generated inside Vega, and cannot
 It's possible to settle on any data source field - for instance checking if a `boolean` is `true` - but time is a good starting point, and the [built-in time data source](#built-in-data-source) can be used for exactly that:
 
 ```javascript
-"oracleSpecForTradingTermination": {
+"dataSourceSpecForTradingTermination": {
     // pubKeys is empty as this is using a built in oracle
     "pubKeys": [],
     "filters": [{

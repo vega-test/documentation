@@ -53,6 +53,18 @@ function generateSettlementDataSourceSpec(skeleton) {
           },
         ],
       },
+      {
+        key: {
+          name: "prices.BTC.timestamp",
+          type: "TYPE_TIMESTAMP",
+        },
+        conditions: [
+          {
+            operator: "OPERATOR_GREATER_THAN",
+            value: "1648684800000000000",
+          },
+        ],
+      },
     ],
   };
 
@@ -116,7 +128,20 @@ function generateSettlementDataSourceSpec(skeleton) {
                       value: "${spec.filters[0].conditions[0].value}",
                     }
                   ]
-              }
+              },
+              {
+                  }
+                  key: {
+                    name: "${spec.filters[1].key.name}",
+                    type: "${spec.filters[1].key.type}",
+                  },
+                  conditions: [
+                    {
+                      operator: "${spec.filters[1].conditions[1].operator}",
+                      value: "${spec.filters[1].conditions[1].value}",
+                    }
+                  ]
+              }              
           ]
         }`;
   };
@@ -143,9 +168,7 @@ function generateTerminationDataSourceSpec(skeleton) {
   );
 
   const spec = {
-    signers: [
-      { ethAddress: { address: "0xfCEAdAFab14d46e20144F48824d0C09B1a03F2BC" } }
-    ],
+    signers: [],
     filters: [
       {
         key: {
